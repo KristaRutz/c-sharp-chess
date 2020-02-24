@@ -3,6 +3,7 @@ using Chess;
 class Program
 {
   
+  Board board = new Board();
   static void PrintBoard()
   {
     Console.WriteLine("CURRENT BOARD");
@@ -13,9 +14,37 @@ class Program
     }
     
   }
+
+  static void SelectPiece()
+  {
+    // select grid spot --> selects piece in this spot IFF piece exists
+    Console.WriteLine("Enter the Column (x coordinate) of the piece you want to select");
+    string pieceXString = Console.ReadLine();
+    int pieceX = int.Parse(pieceXString);
+    Console.WriteLine("Enter the Row (y coordinate) of the piece you want to select");
+    string pieceYString = Console.ReadLine();
+    int pieceY = int.Parse(pieceYString);
+    if (board.SelectPiece(pieceX, pieceY)) // if piece == null, what happens? wrong color?
+    {
+      //piece is selected
+      // do we need to return the piece?
+    }
+    else 
+    {
+      Console.WriteLine("You do not have a piece in this space. Would you like to select another space? ['Y' for yes, 'enter' for no]");
+      string attemptAnswer = Console.ReadLine();
+      if (attemptAnswer == "y" || attemptAnswer == "Y")
+      {
+        SelectPiece();
+      }
+    }
+  }
   static void Main()
   {
-    PrintBoard();
+    //PrintBoard();
+
+    SelectPiece();
+
     //If player is white, user can select white pieces
     //board uses selectPiece, current Piece = 
   //  Console.WriteLine("Determine if a queen can attack another chess piece.");

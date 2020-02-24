@@ -5,6 +5,10 @@ public abstract class Piece {
   public int xCoord {get; set;}
   public int yCoord {get; set;}
 
+  public abstract int ColumnMovement;
+  public abstract int RowMovement;
+  public abstract int Diagonal;
+
   public string Name {
         get;
         set {
@@ -16,6 +20,8 @@ public abstract class Piece {
   public abstract void Move();
 
   public abstract void Attack();
+
+  public abstract bool CheckAll();
 
   //check
   }

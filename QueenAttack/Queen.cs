@@ -10,7 +10,7 @@ public class Queen {
       YCoord = yCoord;
   }
 
-  public bool CheckAll(int x, int y) {
+  public override bool CheckAll(int x, int y) {
     if(CheckSameColumn(x, y) || CheckSameRow(x, y) || CheckDiagonal(x,y)) {
       return true;
     } else {
