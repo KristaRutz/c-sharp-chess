@@ -1,6 +1,6 @@
 using System;
 
-namespace QueenAttack {
+namespace Chess {
 public class Queen {
   
   public int XCoord {get; set;}

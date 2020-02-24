@@ -1,20 +1,23 @@
 using System;
-using QueenAttack;
+using Chess;
 class Program
 {
   
   static void PrintBoard()
   {
     Console.WriteLine("CURRENT BOARD");
-    for (int rows = 0; rows < 8; rows++)
+    Console.WriteLine(" [0] [1] [2] [3] [4] [5] [6] [7]");
+    for (int row = 0; row < 8; row++)
     {
-      Console.WriteLine("[ ] [ ] [ ] [ ] [ ] [ ] [ ] [ ]");
+      Console.WriteLine(row + "[ ] [ ] [ ] [ ] [ ] [ ] [ ] [ ]");
     }
     
   }
   static void Main()
   {
     PrintBoard();
+    //If player is white, user can select white pieces
+    //board uses selectPiece, current Piece = 
   //  Console.WriteLine("Determine if a queen can attack another chess piece.");
   //  Console.WriteLine("Enter coordinates for the queen.");
   //  Console.WriteLine("Enter x coordinate.");
