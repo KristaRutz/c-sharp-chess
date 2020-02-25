@@ -3,11 +3,9 @@ using System;
 namespace Chess {
 public class Queen {
   
-  public int XCoord {get; set;}
-  public int YCoord {get; set;}
-  public Queen(int xCoord, int yCoord) {
-      XCoord = xCoord;
-      YCoord = yCoord;
+  public Queen(Space space) : base (space) {
+    XCoord = space.XCoord;
+    YCoord = space.yCoord;
   }
 
   public override bool CheckAll(int x, int y) {

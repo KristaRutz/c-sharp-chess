@@ -2,12 +2,10 @@ namespace Chess {
 
   public class Pawn {
 
-    public override Move() {
+   public Pawn(Space space) : base (space){}
+   
+   public override bool CheckAll(){
 
-    }
-
-      public override Attack() {
-        
-      }
+   }
   }
 }

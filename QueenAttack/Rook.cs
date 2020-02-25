@@ -2,14 +2,7 @@ namespace Chess {
 
   public class Rook {
 
-    public override Move() {
-
-      }
-
-    public override Attack() {
-      
-    }
-
+    public Rook(Space space) : base (space){}
     public override bool CheckAll(int x, int y) {
       if(CheckSameColumn(x, y) || CheckSameRow(x, y)) {
           return true;

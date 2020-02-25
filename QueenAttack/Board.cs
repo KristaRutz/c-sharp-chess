@@ -1,10 +1,6 @@
 namespace Chess {
-
   public class Board {
-    
-    public bool isBlack { get; set; }
     public string Color { get; set; }
-
     public Piece currentPiece {get; set; }
     public Array[] spaces = new Array[];
     
@@ -30,29 +26,15 @@ namespace Chess {
       }
     }
     public void ChangePlayer() {
-      isBlack = !isBlack;
+      if(Color == "White") {
+        Color = "Black";
+      } else {
+        Color = "White";
+      }
     }
 
-    public bool CheckViable(int x, int y) {
-      Space targetSpace = spaces[x][y];
-
-      // if you already have a piece in target, or your selected piece can't legally move like this, return false
-      if (x == currentPiece.xCoord && y == currentPiece.yCoord)
-      {
-        return false;
-      } 
-      else if(targetSpace.Piece.Color == this.Color || !(currentPiece.CheckAll(x, y))) {
-        return false;
-      }
-      // (if the selected piece is a king or knight, skip the next step)
-      // if there is no piece/an enemy piece in target, but there are pieces in the way, return false
-      int run  = targetSpace.Piece.xCoord - currentPiece.xCoord; 
-      int rise = targetSpace.Piece.yCoord - currentPiece.yCoord;
-
-      string direction;
-      if(targetSpace.xCoord == currentPiece.xCoord) {
-        //direction = "column";
-        if(rise > 0) {
+    public bool CheckSpacesBetweenColumn(int rise) {
+      if(rise > 0) {
           while(rise > 1){
             if (this.spaces[currentPiece.xCoord][currentPiece.yCoord + (rise - 1)] != null){
               return false;
@@ -67,10 +49,11 @@ namespace Chess {
             rise ++;
           }
         }
-      }
-      else if (targetSpace.yCoord == currentPiece.yCoord) {
-        //direction = "row";
-          if(run > 0) {
+        return true;
+    }
+
+    public bool CheckSpacesBetweenRow(int run) {
+                if(run > 0) {
           while(run > 1){
             if (this.spaces[currentPiece.xCoord + (run - 1)][currentPiece.yCoord] != null){
               return false;
@@ -85,10 +68,11 @@ namespace Chess {
             run ++;
           }
         }
-      }
-      else {
-        //direction = "diagonal";
-        if((run > 0) && (rise > 0)) {
+        return true;
+    }
+
+    public bool CheckSpacesBetweenDiagonal(int rise, int run) {
+      if((run > 0) && (rise > 0)) {
           while(rise > 1){
             if (this.spaces[currentPiece.xCoord + (rise - 1)][currentPiece.yCoord + (rise - 1)] != null){
               return false;
@@ -119,50 +103,51 @@ namespace Chess {
             rise --;
           }
         }
-      }
-      //will return either positive or negative
+    }
+    public bool CheckViable(int x, int y) {
+      Space targetSpace = spaces[x][y];
 
-      
-      int increaseOrDecrease;
-      //bool containsAPiece;
-      // if(direction == "column") {
-
-      // } 
-      else if (direction == "row") {
-        if(run > 0) {
-          increaseOrDecrease = 1;
-        } else {
-          increaseOrDecrease = -1;
-        }
-        //spaces array with row direction
-      } else {
-        if(rise/run > 0) {
-          increaseOrDecrease = 1;
-        } else {
-          increaseOrDecrease = -1;
-        }
-        //spaces array with diagonal direction
-      }
-
-      while()
-      Space[] spacesBetween = new Space[];
-
-      if(s.Piece == null && s.Piece.CheckAll(x, y)) {
-        
-        //lets get coordinates of the current piece
-        //lets get all spaces between piece space and inputted coordinates, if a non null or same color 
-        //if there is a piece in the way, and you cant jump over the piece.
-        //return false;
-        //otherwise
-      }
-      if(s.Piece.Color == this.Color) {
+      // if you already have a piece in target, or your selected piece can't legally move like this, return false
+      if (x == currentPiece.xCoord && y == currentPiece.yCoord)
+      {
+        return false;
+      } 
+      else if(targetSpace.Piece.Color == this.Color || !(currentPiece.CheckAll(x, y))) {
         return false;
       }
-      if(s.Piece) {
+      // (if the selected piece is a king or knight, skip the next step)
+      // if there is no piece/an enemy piece in target, but there are pieces in the way, return false
+      int run  = targetSpace.Piece.xCoord - currentPiece.xCoord; 
+      int rise = targetSpace.Piece.yCoord - currentPiece.yCoord;
+      if(targetSpace.xCoord == currentPiece.xCoord) {
+        if(!CheckSpacesBetweenColumn(rise)) {
+          return false;
+        }
+      }
+      else if (targetSpace.yCoord == currentPiece.yCoord) {
+        if(!CheckSpacesBetweenRow(run)) {
+          return false;
+        }
+      }
+      else {
+        if(!CheckSpacesBetweenDiagonal(rise, run)) {
+          return false;
+        }
+      }
+      return true;
+    }
 
-      } 
+    public bool Move(int x, int y) {
+      // code for "en passant" If the chess piece moves past a pawn
+    }
 
-      // there is no piece/an enemy piece in target or in the way, so we return true
+    public bool Attack(int x, int y) {
+      Space space = this.spaces[x][y];
+      if(space.Piece != null) {
+        space.Piece = null;
+        space.Piece = this.currentPiece;
+        return true;
+      }
     }
   }
 }
